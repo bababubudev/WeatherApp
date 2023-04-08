@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js" defer></script>
+    <title>Course Assignment</title>
+</head>
+
+<body>
+    <div class="view">
+        <div class="button-container">
+            <button id="home-button" onclick="showHome()">Home</button>
+            <button id="temp-button" onclick="showTemperature()">Temperature</button>
+            <button id="wind-button" onclick="showWind()">Wind Speed</button>
+            <button id="info-button" onclick="showInfo()">About Me</button>
+        </div>
+
+        <div class="data-container" id="alldata">
+            <table id="table-container"></table>
+            <div id="canvas-container">
+                <canvas id="chart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <select name="forecast" id="forecast-time">
+        <option value="NOW">Now</option>
+        <option value="24H">24 Hours</option>
+        <option value="48H">48 Hours</option>
+        <option value="72H">72 Hours</option>
+        <option value="1WK">1 Week</option>
+    </select>
+
+    <section class="info" id="information-container">
+        <h1>Hello World</h1>
+    </section>
+</body>
+
+</html>

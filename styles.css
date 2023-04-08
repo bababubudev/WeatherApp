@@ -1,0 +1,52 @@
+body {
+    background-color: #D0B8A8;
+}
+
+table,
+tr,
+th,
+td {
+    border: 1px solid;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+th {
+    background-color: cadetblue;
+}
+
+table {
+    width: 100%;
+}
+
+.info {
+    background-color: grey;
+}
+
+.view {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    column-gap: 20px;
+
+    justify-items: stretch;
+}
+
+.data-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+}
+
+.button-container {
+    background-color: "#393646";
+
+    display: grid;
+    row-gap: 5px;
+
+    justify-items: stretch;
+}
+
+#canvas-container {
+    position: relative;
+    margin: 0;
+}
