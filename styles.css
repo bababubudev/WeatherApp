@@ -19,16 +19,14 @@ table {
     width: 100%;
 }
 
-.info {
-    background-color: grey;
-}
-
 .view {
     display: grid;
-    grid-template-columns: 1fr 5fr;
+    grid-template-columns: 50px 1fr;
     column-gap: 20px;
+}
 
-    justify-items: stretch;
+.info {
+    background-color: grey;
 }
 
 .data-container {
@@ -37,13 +35,95 @@ table {
     column-gap: 20px;
 }
 
-.button-container {
-    background-color: "#393646";
+.nav-container {
+    background-color: rgba(0, 0, 0, 0.6);
+
+    position: fixed;
+    height: 100%;
+    width: 17vw;
+    top: 0;
+    left: 0;
 
     display: grid;
-    row-gap: 5px;
+    align-content: start;
 
-    justify-items: stretch;
+    z-index: 1;
+    overflow-x: hidden;
+
+    transition: 0.2s;
+}
+
+.nav-container button {
+    display: block;
+    font-size: 1.5rem;
+    padding: 3vh 1vw;
+
+    position: relative;
+    top: 10vh;
+
+    background: none;
+    border: none;
+    color: #ABC4AA;
+    cursor: pointer;
+
+    text-align: left;
+    transition: 0.1s ease;
+}
+
+.nav-container button:hover {
+    color: sandybrown;
+    background-color: #abc4aac9;
+
+    transition: 0.2s ease-out;
+}
+
+.closebtn {
+    display: block;
+    position: relative;
+    height: 4vh;
+    width: 2vw;
+    padding: 0.75vh 0;
+
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    margin-bottom: 10px;
+    margin-left: 5px;
+
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
+
+    transition: 0.2s ease-in;
+}
+
+.closebtn .bar {
+    display: block;
+    height: 0.5vh;
+    width: 100%;
+
+    border-radius: 3vh;
+    background: #8B7E74;
+
+    transition: 0.2s ease-in;
+}
+
+.closebtn:hover .bar {
+    background-color: #ABC4AA;
+    box-shadow: -3px 3px 1px 1px rgba(0, 0, 0, 0.2);
+
+    transition: 0.2s ease;
+}
+
+.closebtn:active .bar {
+    background-color: #829481;
+    box-shadow: -3px 4px 1px 1px rgba(0, 0, 0, 0.2);
+
+    transition: 0.1s ease;
 }
 
 #canvas-container {

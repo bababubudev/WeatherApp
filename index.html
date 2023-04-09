@@ -14,7 +14,13 @@
 
 <body>
     <div class="view">
-        <div class="button-container">
+        <button class="closebtn" onclick="toggleNav()">
+            <span class="bar bar1"></span>
+            <span class="bar bar2"></span>
+            <span class="bar bar3"></span>
+        </button>
+
+        <div class="nav-container" id="nav">
             <button id="home-button" onclick="showHome()">Home</button>
             <button id="temp-button" onclick="showTemperature()">Temperature</button>
             <button id="wind-button" onclick="showWind()">Wind Speed</button>

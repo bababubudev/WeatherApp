@@ -1,19 +1,16 @@
 const table = document.getElementById("table-container");
 const info = document.getElementById("information-container");
+
 const canvas = document.getElementById("canvas-container");
 const ctx = document.getElementById("chart");
+
 const dropdown = document.getElementById("forecast-time");
 const allData = document.getElementById("alldata");
+const navArea = document.getElementById("nav");
 
 const degreeSymbol = '\u00B0';
 let currentChart = null;
-
-const hideInfo = () =>
-{
-    info.style.display = "none";
-    canvas.style.removeProperty("display");
-    dropdown.style.removeProperty("display");
-};
+let showNav = false;
 
 const showInfo = () =>
 {
@@ -23,6 +20,31 @@ const showInfo = () =>
     canvas.style.display = "none";
     dropdown.style.display = "none";
 }
+
+const hideInfo = () =>
+{
+    info.style.display = "none";
+    canvas.style.removeProperty("display");
+    dropdown.style.removeProperty("display");
+};
+
+const showCanvas = () =>
+{
+    allData.style["grid-template-columns"] = "";
+    canvas.style["display"] = "";
+};
+
+const hideCanvas = () =>
+{
+    allData.style["grid-template-columns"] = "none";
+    canvas.style.display = "none";
+};
+
+const toggleNav = () =>
+{
+    showNav = !showNav;
+    navArea.style.width = showNav ? "17vw" : "0";
+};
 
 showTemperature();
 
@@ -36,18 +58,6 @@ async function showHome()
     hideCanvas();
     createHeaders(headers);
     createTable(data.slice(-30), true);
-}
-
-function hideCanvas()
-{
-    allData.style["grid-template-columns"] = "none";
-    canvas.style.display = "none";
-}
-
-function showCanvas()
-{
-    allData.style["grid-template-columns"] = "";
-    canvas.style["display"] = "";
 }
 
 async function showTemperature(timeLength = 0)
@@ -194,7 +204,7 @@ function createChart(data, type)
         options: {
             responsive: true,
             animation: true,
-            aspectRatio: 1.5,
+            maintainAspectRatio: false,
             layout: {
                 padding: {
                     top: 20,
