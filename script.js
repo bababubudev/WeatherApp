@@ -9,8 +9,10 @@ const allData = document.getElementById("alldata");
 const navArea = document.getElementById("nav");
 
 const degreeSymbol = '\u00B0';
+
 let currentChart = null;
-let showNav = false;
+let currentFunction;
+let minimize;
 
 const showInfo = () =>
 {
@@ -24,28 +26,60 @@ const showInfo = () =>
 const hideInfo = () =>
 {
     info.style.display = "none";
+
     canvas.style.removeProperty("display");
-    dropdown.style.removeProperty("display");
 };
 
 const showCanvas = () =>
 {
     allData.style["grid-template-columns"] = "";
     canvas.style["display"] = "";
+
+    dropdown.style.removeProperty("color");
+    dropdown.style.removeProperty("display");
+    dropdown.removeAttribute("disabled");
 };
 
 const hideCanvas = () =>
 {
     allData.style["grid-template-columns"] = "none";
     canvas.style.display = "none";
+
+    dropdown.style.color = "grey";
+    dropdown.setAttribute("disabled", "disabled");
 };
 
 const toggleNav = () =>
 {
-    showNav = !showNav;
-    navArea.style.width = showNav ? "17vw" : "0";
+    minimize = !minimize;
+
+    const classToAdd = minimize ? "minimize" : "maximize";
+    const classToRemove = minimize ? "maximize" : "minimize";
+
+    navArea.classList.add(classToAdd);
+    navArea.classList.remove(classToRemove);
 };
 
+const btns = document.getElementsByClassName("nav-btn");
+document.addEventListener("click", e =>
+{
+    for (let i = 0; i < btns.length; i++)
+    {
+        if (e.target === btns[i])
+        {
+            currentFunction = btns[i].onclick;
+        }
+    }
+});
+
+const update = () =>
+{
+    if (typeof (currentFunction) === "function")
+        currentFunction();
+}
+
+
+toggleNav();
 showTemperature();
 
 async function showHome()
@@ -60,47 +94,59 @@ async function showHome()
     createTable(data.slice(-30), true);
 }
 
-async function showTemperature(timeLength = 0)
+async function showTemperature()
 {
     table.innerHTML = "";
 
-    const data = await fetchData("temperature");
+    const time = dropdown.value;
+    const data = await fetchData("temperature", time);
     const header = ["Row", `Temperature (${degreeSymbol}C)`, "Time", "Date"];
 
     showCanvas();
     createHeaders(header);
-    createTable(data.slice(-20));
-    currentChart = createChart(data.slice(-20), `Temperature (${degreeSymbol}C)`);
+    createTable(data);
+    createTimeInfo();
+
+    currentChart = createChart(data, `Temperature (${degreeSymbol}C)`, createTimeInfo(time));
 }
 
 async function showWind()
 {
     table.innerHTML = "";
 
-    const data = await fetchData("wind_speed");
+    const time = dropdown.value;
+    const data = await fetchData("wind_speed", time);
     const header = ["Row", "Wind Speed (m/s)", "Time", "Date"];
 
     showCanvas();
     createHeaders(header);
-    createTable(data.slice(-20));
-    currentChart = createChart(data.slice(-20), "Wind Speed (m/s)");
+    createTable(data);
+
+    currentChart = createChart(data, "Wind Speed (m/s)");
 }
 
-async function fetchData(type)
+async function fetchData(type = "", customTime = "")
 {
     hideInfo();
     if (currentChart) currentChart.destroy();
-    const response = await fetch("http://webapi19sa-1.course.tamk.cloud/v1/weather");
-    const json = await response.json();
+
+    const URL = type === ""
+        ? `http://webapi19sa-1.course.tamk.cloud/v1/weather`
+        : `http://webapi19sa-1.course.tamk.cloud/v1/weather/${type}/${customTime}`;
+
+    console.log(URL);
 
     try
     {
-        const sorted = json.sort((a, b) =>
+        const response = await fetch(URL);
+        const json = await response.json();
+
+        json.sort((a, b) =>
         {
             return new Date(a.date_time) - new Date(b.date_time);
         });
 
-        sorted.forEach(elem =>
+        json.forEach(elem =>
         {
             const [date, time] = elem.date_time.split("T");
 
@@ -119,10 +165,7 @@ async function fetchData(type)
             delete elem.device_id;
         });
 
-        if (type === undefined)
-            return json;
-
-        return json.filter(elem => elem.type === type);
+        return json;
     }
     catch (err)
     {
@@ -180,21 +223,18 @@ function createTable(data, showAll = false)
 function createChart(data, type)
 {
     const xValues = data.flatMap(elem => elem.time.slice(0, -3));
-    const yValues = data.flatMap(elem => elem.value);
-
-    const hasNextDay = data.every((elem, index) =>
+    const yValues = data.flatMap(elem =>
     {
-        elem.date < data[index + 1].date;
+        const dataType = Object.keys(elem)[0];
+        return elem[dataType];
     });
-
-    console.log(hasNextDay);
 
     const chartInfo = {
         type: "bar",
         data: {
             labels: xValues,
             datasets: [{
-                label: "Current " + type,
+                label: type,
                 data: yValues,
                 borderWidth: 2,
                 borderColor: "#F7F1E5",
@@ -253,4 +293,23 @@ function createChart(data, type)
     ctx.style.backgroundColor = "#675D50";
     Chart.defaults.color = "#F3DEBA";
     return new Chart(ctx, chartInfo);;
+}
+
+function createTimeInfo(time)
+{
+    switch (time)
+    {
+        case "":
+            return "Current";
+        case "23":
+            return "Today's";
+        case "47":
+            return "2 day's";
+        case "71":
+            return "3 day's";
+        case "167":
+            return "This week's";
+        default:
+            return "";
+    }
 }

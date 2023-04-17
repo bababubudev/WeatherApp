@@ -1,5 +1,5 @@
 body {
-    background-color: #D0B8A8;
+    background-color: #A9907E;
 }
 
 table,
@@ -15,14 +15,15 @@ th {
     background-color: cadetblue;
 }
 
-table {
-    width: 100%;
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 .view {
     display: grid;
     grid-template-columns: 50px 1fr;
-    column-gap: 20px;
 }
 
 .info {
@@ -32,7 +33,10 @@ table {
 .data-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    column-gap: 20px;
+    column-gap: 1vw;
+    margin-left: 3vw;
+
+    overflow-y: hidden;
 }
 
 .nav-container {
@@ -40,7 +44,6 @@ table {
 
     position: fixed;
     height: 100%;
-    width: 17vw;
     top: 0;
     left: 0;
 
@@ -53,45 +56,101 @@ table {
     transition: 0.2s;
 }
 
-.nav-container button {
-    display: block;
-    font-size: 1.5rem;
-    padding: 3vh 1vw;
-
-    position: relative;
+.nav-container select {
+    position: absolute;
     top: 10vh;
 
     background: none;
     border: none;
-    color: #ABC4AA;
+    color: #DDFFBB;
     cursor: pointer;
 
     text-align: left;
     transition: 0.1s ease;
 }
 
-.nav-container button:hover {
-    color: sandybrown;
-    background-color: #abc4aac9;
+.nav-container button {
+    display: block;
 
+    position: relative;
+
+    top: 20vh;
+    background: none;
+    border: none;
+    color: #ABC4AA;
+    cursor: pointer;
+
+    text-align: left;
+
+    overflow: hidden;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+
+    transition: 0.1s ease;
+}
+
+.minimize {
+    background: rgba(103, 93, 80, 1);
+    background: linear-gradient(to right, rgba(103, 93, 80, 1), rgba(103, 93, 80, 0));
+}
+
+.maximize {
+    background: rgba(103, 93, 80, 1);
+    background: linear-gradient(to right, rgba(103, 93, 80, 1), rgba(103, 93, 80, 0));
+}
+
+.minimize button,
+select {
+    font-size: 0.9rem;
+    padding: 3vh 0 3vh 0.5vw;
+
+    text-transform: lowercase;
+    width: 5vw;
+}
+
+.maximize button {
+    font-size: 1.5rem;
+    padding: 3vh 1vw;
+    text-transform: capitalize;
+
+    width: 17vw;
+}
+
+.maximize select {
+    font-size: 1.5rem;
+    padding: 3vh 1vw;
+    text-transform: capitalize;
+    width: 17vw;
+}
+
+.nav-container button:hover,
+select:hover {
+    color: sandybrown;
+    background: rgba(171, 196, 170, 0.7);
+    background: linear-gradient(to right, rgba(171, 196, 170, 0.7), rgba(171, 196, 170, 0));
     transition: 0.2s ease-out;
 }
 
+select option {
+    margin: 40px;
+    background-color: rgba(171, 196, 170);
+    color: sandybrown;
+}
+
 .closebtn {
-    display: block;
-    position: relative;
-    height: 4vh;
-    width: 2vw;
-    padding: 0.75vh 0;
-
-    z-index: 2;
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    justify-self: center;
 
-    margin-bottom: 10px;
-    margin-left: 5px;
+    position: relative;
+
+    height: 25px;
+    width: 50px;
+
+    z-index: 2;
+
+    margin-left: 15px;
 
     background: none;
     border: none;
@@ -103,24 +162,24 @@ table {
 
 .closebtn .bar {
     display: block;
-    height: 0.5vh;
+    height: 5px;
     width: 100%;
 
-    border-radius: 3vh;
-    background: #8B7E74;
+    border-radius: 20px;
+    background-color: #ABC4AA;
 
     transition: 0.2s ease-in;
 }
 
 .closebtn:hover .bar {
-    background-color: #ABC4AA;
+    background-color: sandybrown;
     box-shadow: -3px 3px 1px 1px rgba(0, 0, 0, 0.2);
 
     transition: 0.2s ease;
 }
 
 .closebtn:active .bar {
-    background-color: #829481;
+    background-color: rgba(244, 165, 96, 0.4);
     box-shadow: -3px 4px 1px 1px rgba(0, 0, 0, 0.2);
 
     transition: 0.1s ease;
@@ -129,4 +188,6 @@ table {
 #canvas-container {
     position: relative;
     margin: 0;
+
+    height: 80vh;
 }

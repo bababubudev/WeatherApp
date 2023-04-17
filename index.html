@@ -21,10 +21,17 @@
         </button>
 
         <div class="nav-container" id="nav">
-            <button id="home-button" onclick="showHome()">Home</button>
-            <button id="temp-button" onclick="showTemperature()">Temperature</button>
-            <button id="wind-button" onclick="showWind()">Wind Speed</button>
-            <button id="info-button" onclick="showInfo()">About Me</button>
+            <select name="forecast" id="forecast-time" onchange="update()">
+                <option value="">Now</option>
+                <option value="23">24 Hours</option>
+                <option value="47">48 Hours</option>
+                <option value="71">72 Hours</option>
+                <option value="167">1 Week</option>
+            </select>
+            <button id="home-button" class="nav-btn" onclick="showHome()">Home</button>
+            <button id="temp-button" class="nav-btn" onclick="showTemperature()">Temperature</button>
+            <button id="wind-button" class="nav-btn" onclick="showWind()">Wind Speed</button>
+            <button id="info-button" class="nav-btn" onclick="showInfo()">About Me</button>
         </div>
 
         <div class="data-container" id="alldata">
@@ -35,13 +42,7 @@
         </div>
     </div>
 
-    <select name="forecast" id="forecast-time">
-        <option value="NOW">Now</option>
-        <option value="24H">24 Hours</option>
-        <option value="48H">48 Hours</option>
-        <option value="72H">72 Hours</option>
-        <option value="1WK">1 Week</option>
-    </select>
+
 
     <section class="info" id="information-container">
         <h1>Hello World</h1>
