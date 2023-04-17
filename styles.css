@@ -1,5 +1,6 @@
 body {
     background-color: #A9907E;
+    position: relative;
 }
 
 table,
@@ -21,9 +22,11 @@ select {
     appearance: none;
 }
 
-.view {
-    display: grid;
-    grid-template-columns: 50px 1fr;
+.header {
+    justify-self: start;
+
+    background-color: #DDFFBB;
+    margin: 0 0 0 5vw;
 }
 
 .info {
@@ -34,7 +37,7 @@ select {
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 1vw;
-    margin-left: 3vw;
+    margin-left: 5vw;
 
     overflow-y: hidden;
 }
@@ -58,7 +61,7 @@ select {
 
 .nav-container select {
     position: absolute;
-    top: 10vh;
+    top: 100px;
 
     background: none;
     border: none;
@@ -74,7 +77,7 @@ select {
 
     position: relative;
 
-    top: 20vh;
+    top: 180px;
     background: none;
     border: none;
     color: #ABC4AA;
@@ -102,7 +105,7 @@ select {
 .minimize button,
 select {
     font-size: 0.9rem;
-    padding: 3vh 0 3vh 0.5vw;
+    padding: 30px 0 30px 5px;
 
     text-transform: lowercase;
     width: 5vw;
@@ -139,18 +142,18 @@ select option {
 
 .closebtn {
     display: flex;
+
     flex-direction: column;
     justify-content: space-between;
     justify-self: center;
 
-    position: relative;
+    position: absolute;
 
-    height: 25px;
-    width: 50px;
+    height: 27px;
+    width: 52px;
 
     z-index: 2;
-
-    margin-left: 15px;
+    top: 10px;
 
     background: none;
     border: none;
@@ -165,7 +168,7 @@ select option {
     height: 5px;
     width: 100%;
 
-    border-radius: 20px;
+    border-radius: 5px;
     background-color: #ABC4AA;
 
     transition: 0.2s ease-in;

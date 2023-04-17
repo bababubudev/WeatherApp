@@ -11,8 +11,8 @@ const navArea = document.getElementById("nav");
 const degreeSymbol = '\u00B0';
 
 let currentChart = null;
-let currentFunction;
-let minimize;
+let currentType = "";
+let minimize = false;
 
 const showInfo = () =>
 {
@@ -60,22 +60,23 @@ const toggleNav = () =>
     navArea.classList.remove(classToRemove);
 };
 
-const btns = document.getElementsByClassName("nav-btn");
-document.addEventListener("click", e =>
-{
-    for (let i = 0; i < btns.length; i++)
-    {
-        if (e.target === btns[i])
-        {
-            currentFunction = btns[i].onclick;
-        }
-    }
-});
-
 const update = () =>
 {
-    if (typeof (currentFunction) === "function")
-        currentFunction();
+    switch (currentType)
+    {
+        case "":
+            showHome();
+            break;
+        case "temperature":
+            showTemperature();
+            break;
+        case "Wind_speed":
+            showWind();
+            break;
+        default:
+            showHome();
+            break;
+    }
 }
 
 
@@ -115,7 +116,7 @@ async function showWind()
     table.innerHTML = "";
 
     const time = dropdown.value;
-    const data = await fetchData("wind_speed", time);
+    const data = await fetchData("Wind_speed", time);
     const header = ["Row", "Wind Speed (m/s)", "Time", "Date"];
 
     showCanvas();
@@ -135,6 +136,8 @@ async function fetchData(type = "", customTime = "")
         : `http://webapi19sa-1.course.tamk.cloud/v1/weather/${type}/${customTime}`;
 
     console.log(URL);
+
+    currentType = type;
 
     try
     {

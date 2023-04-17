@@ -13,13 +13,13 @@
 </head>
 
 <body>
+    <h1 class="header">Weather App</h1>
+    <button class="closebtn" onclick="toggleNav()">
+        <span class="bar bar1"></span>
+        <span class="bar bar2"></span>
+        <span class="bar bar3"></span>
+    </button>
     <div class="view">
-        <button class="closebtn" onclick="toggleNav()">
-            <span class="bar bar1"></span>
-            <span class="bar bar2"></span>
-            <span class="bar bar3"></span>
-        </button>
-
         <div class="nav-container" id="nav">
             <select name="forecast" id="forecast-time" onchange="update()">
                 <option value="">Now</option>
