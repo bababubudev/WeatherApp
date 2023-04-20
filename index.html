@@ -14,14 +14,14 @@
 
 <body>
     <h1 class="header">Weather App</h1>
-    <button class="closebtn" onclick="toggleNav()">
+    <button class="closebtn" id="close" onclick="toggleNav()">
         <span class="bar bar1"></span>
         <span class="bar bar2"></span>
         <span class="bar bar3"></span>
     </button>
     <div class="view">
         <div class="nav-container" id="nav">
-            <select name="forecast" id="forecast-time" onchange="update()">
+            <select name="forecast" class="forecast" id="forecast-time" onchange="update()">
                 <option value="">Now</option>
                 <option value="23">24 Hours</option>
                 <option value="47">48 Hours</option>
@@ -32,6 +32,16 @@
             <button id="temp-button" class="nav-btn" onclick="showTemperature()">Temperature</button>
             <button id="wind-button" class="nav-btn" onclick="showWind()">Wind Speed</button>
             <button id="info-button" class="nav-btn" onclick="showInfo()">About Me</button>
+            <div class="dropdown-list" id="showOther">
+                More
+                <div class="more">
+                    <button id="drpRain" class="nav-btn" onclick="showRain()">Rain</button>
+                    <button id="drpWnDir" class="nav-btn" onclick="showWindDir()">Wind Direction</button>
+                    <button id="drpLght" class="nav-btn" onclick="showLight()">Light</button>
+                    <button id="drpTemp" class="nav-btn" onclick="showTemperature(true)">Temperature</button>
+                    <button id="drpWind" class="nav-btn" onclick="showWind(true)">Wind</button>
+                </div>
+            </div>
         </div>
 
         <div class="data-container" id="alldata">
@@ -41,8 +51,6 @@
             </div>
         </div>
     </div>
-
-
 
     <section class="info" id="information-container">
         <h1>Hello World</h1>

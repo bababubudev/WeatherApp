@@ -1,22 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+html {
+    /* color-scheme: dark; */
+}
+
 body {
-    background-color: #A9907E;
+    background-color: #dfcabc;
     position: relative;
 }
 
-table,
-tr,
+table {
+    border-collapse: collapse;
+    width: 100%;
+
+}
+
 th,
 td {
-    border: 1px solid;
-    border-collapse: collapse;
     text-align: center;
 }
 
-th {
-    background-color: cadetblue;
+tr:nth-of-type(2n) {
+    background-color: #c7b1a1;
 }
 
-select {
+.forecast {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -59,7 +71,7 @@ select {
     transition: 0.2s;
 }
 
-.nav-container select {
+.nav-container .forecast {
     position: absolute;
     top: 100px;
 
@@ -72,7 +84,7 @@ select {
     transition: 0.1s ease;
 }
 
-.nav-container button {
+.nav-container .nav-btn {
     display: block;
 
     position: relative;
@@ -92,6 +104,22 @@ select {
     transition: 0.1s ease;
 }
 
+.dropdown-list {
+    display: block;
+
+    position: relative;
+
+    top: 180px;
+    background: none;
+    border: none;
+    color: #ABC4AA;
+    cursor: pointer;
+
+    text-align: left;
+
+    transition: 0.1s ease;
+}
+
 .minimize {
     background: rgba(103, 93, 80, 1);
     background: linear-gradient(to right, rgba(103, 93, 80, 1), rgba(103, 93, 80, 0));
@@ -102,8 +130,9 @@ select {
     background: linear-gradient(to right, rgba(103, 93, 80, 1), rgba(103, 93, 80, 0));
 }
 
-.minimize button,
-select {
+.minimize .nav-btn,
+.forecast,
+.dropdown-list {
     font-size: 0.9rem;
     padding: 30px 0 30px 5px;
 
@@ -111,7 +140,7 @@ select {
     width: 5vw;
 }
 
-.maximize button {
+.maximize .nav-btn {
     font-size: 1.5rem;
     padding: 3vh 1vw;
     text-transform: capitalize;
@@ -119,25 +148,65 @@ select {
     width: 17vw;
 }
 
-.maximize select {
+.maximize .dropdown-list {
+    font-size: 1.5rem;
+    padding: 3vh 1vw;
+    text-transform: capitalize;
+
+    width: 17vw;
+}
+
+.maximize .forecast {
     font-size: 1.5rem;
     padding: 3vh 1vw;
     text-transform: capitalize;
     width: 17vw;
 }
 
-.nav-container button:hover,
-select:hover {
+.nav-container .nav-btn:hover,
+.forecast:hover,
+.dropdown-list:hover {
     color: sandybrown;
     background: rgba(171, 196, 170, 0.7);
     background: linear-gradient(to right, rgba(171, 196, 170, 0.7), rgba(171, 196, 170, 0));
     transition: 0.2s ease-out;
 }
 
-select option {
+.forecast option {
     margin: 40px;
     background-color: rgba(171, 196, 170);
     color: sandybrown;
+}
+
+.more {
+    position: absolute;
+    display: grid;
+    /* background-color: grey; */
+    margin-top: 3vh;
+    left: 0;
+}
+
+.more .nav-btn {
+    top: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.minimize .dropdown-list .nav-btn {
+    font-size: 0.1rem;
+}
+
+.minimize .dropdown-list:hover .nav-btn {
+    font-size: 0.75rem;
+}
+
+.maximize .dropdown-list .nav-btn {
+    font-size: 0.1rem;
+}
+
+.maximize .dropdown-list:hover .nav-btn {
+    padding-left: 20px;
+    font-size: 1rem;
 }
 
 .closebtn {
@@ -192,5 +261,6 @@ select option {
     position: relative;
     margin: 0;
 
+    border: 1px solid red;
     height: 80vh;
 }
