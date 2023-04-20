@@ -9,6 +9,7 @@ const allData = document.getElementById("alldata");
 const navArea = document.getElementById("nav");
 const moreStuff = document.getElementById("showOther");
 const closeButton = document.getElementById("close");
+const pageInfo = document.getElementById("pageInfo");
 
 const degreeSymbol = '\u00B0';
 const angleSymbol = '\u2220';
@@ -118,6 +119,7 @@ async function showHome()
     hideCanvas();
     createHeaders(headers);
     createTable(data.slice(-30), true);
+    pageInfo.innerHTML = "Home";
 }
 
 async function showTemperature(isCalled = false)
@@ -309,6 +311,8 @@ function createChart(data, type, extra = false)
         const dataType = Object.keys(elem)[0];
         return elem[dataType];
     });
+
+    pageInfo.innerText = type;
 
     const chartType = extra ? "line" : "bar";
 

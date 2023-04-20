@@ -9,7 +9,7 @@ html {
 }
 
 body {
-    background-color: #dfcabc;
+    background-color: #A9907E;
     position: relative;
 }
 
@@ -19,9 +19,13 @@ table {
 
 }
 
+th {
+    background: rgba(0, 0, 0, 0.2);
+}
+
 th,
 td {
-    text-align: center;
+    text-align: left;
 }
 
 tr:nth-of-type(2n) {
@@ -55,7 +59,8 @@ tr:nth-of-type(2n) {
 }
 
 .nav-container {
-    background-color: rgba(0, 0, 0, 0.6);
+    background: rgba(103, 93, 80, 1);
+    background: linear-gradient(to right, rgba(103, 93, 80, 1), rgba(103, 93, 80, 0));
 
     position: fixed;
     height: 100%;
@@ -118,16 +123,6 @@ tr:nth-of-type(2n) {
     text-align: left;
 
     transition: 0.1s ease;
-}
-
-.minimize {
-    background: rgba(103, 93, 80, 1);
-    background: linear-gradient(to right, rgba(103, 93, 80, 1), rgba(103, 93, 80, 0));
-}
-
-.maximize {
-    background: rgba(103, 93, 80, 1);
-    background: linear-gradient(to right, rgba(103, 93, 80, 1), rgba(103, 93, 80, 0));
 }
 
 .minimize .nav-btn,
@@ -261,6 +256,11 @@ tr:nth-of-type(2n) {
     position: relative;
     margin: 0;
 
-    border: 1px solid red;
     height: 80vh;
+}
+
+#chart {
+    border: 1px solid red;
+    box-shadow: -3px 4px 10px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
 }
