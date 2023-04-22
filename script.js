@@ -18,6 +18,7 @@ const amountToShow = 25;
 let currentChart = null;
 let currentType = "";
 let minimize = false;
+let isImage = false;
 
 const print = (msg) => console.log(msg);
 
@@ -28,6 +29,7 @@ const showInfo = () =>
     table.innerHTML = "";
     canvas.style.display = "none";
     dropdown.style.display = "none";
+    createPageHeaders("About me", "by Prabesh", "4:00");
 }
 
 const hideInfo = () =>
@@ -36,6 +38,15 @@ const hideInfo = () =>
 
     canvas.style.removeProperty("display");
 };
+
+const toggleBG = () =>
+{
+    isImage = !isImage;
+    const body = document.body;
+
+    body.style.background = isImage ? "url('./resources/orangeSky.jpeg')" : "rgb(169, 144, 126)";
+    body.style["backgroundSize"] = "cover";
+}
 
 const showCanvas = () =>
 {
@@ -73,6 +84,7 @@ const defaultBtn = btns["temp-button"];
 
 currentFunction = defaultBtn.onclick;
 defaultBtn.style.color = "sandybrown";
+
 const newbtn = Array.from(btns).filter(elem =>
 {
     return elem !== closeButton;
@@ -107,7 +119,7 @@ const update = () =>
 }
 
 toggleNav();
-showTemperature();
+showInfo();
 
 async function showHome()
 {
@@ -117,77 +129,109 @@ async function showHome()
     const headers = ["Row", "Type", "Value", "Time", "Date"];
 
     hideCanvas();
-    createHeaders(headers);
+    createTableHeaders(headers);
+
+    const dataDate = new Date(data.at(-1).date);
+    const today = new Date();
+    const isToday = dataDate.getDate() === today.getDate();
+
+    createPageHeaders("Home", !isToday && dataDate.toJSON().slice(0, 10), data.at(-1).time.slice(0, -3), true);
     createTable(data.slice(-30), true);
-    pageInfo.innerHTML = "Home";
 }
 
 async function showTemperature(isCalled = false)
 {
     table.innerHTML = "";
 
+    const symbol = `Temperature (${degreeSymbol}C)`;
+
     const time = dropdown.value;
     const data = await fetchData("temperature", isCalled && time === "" ? "167" : time);
     const shownData = time === "" ? data.slice(-amountToShow) : data;
 
-    const header = ["Row", `Temperature (${degreeSymbol}C)`, "Time", "Date"];
+    const header = ["Row", symbol, "Time", "Date"];
 
     showCanvas();
-    createHeaders(header);
+    createTableHeaders(header);
     createTable(shownData);
 
-    currentChart = createChart(shownData, `Temperature (${degreeSymbol}C)`, isCalled);
+    const dataDate = new Date(data.at(-1).date);
+    const today = new Date();
+    const isToday = dataDate.getDate() === today.getDate();
+
+    createPageHeaders(symbol, !isToday && dataDate.toJSON().slice(0, 10), data.at(-1).time.slice(0, -3));
+    currentChart = createChart(shownData, symbol, isCalled);
 }
 
 async function showWind(isCalled = false)
 {
     table.innerHTML = "";
 
+    const symbol = "Wind Speed (m/s)";
     const time = dropdown.value;
 
-    const fetcher = time === "" && !isCalled ? "Wind_speed" : "wind_speed";
-    const data = await fetchData(fetcher, isCalled && time === "" ? "167" : time);
+    const data = await fetchData("wind_speed", isCalled && time === "" ? "167" : time);
     const shownData = time === "" ? data.slice(-amountToShow) : data;
 
-    const header = ["Row", "Wind Speed (m/s)", "Time", "Date"];
+    const header = ["Row", symbol, "Time", "Date"];
 
     showCanvas();
-    createHeaders(header);
+    createTableHeaders(header);
     createTable(shownData);
 
-    currentChart = createChart(shownData, "Wind Speed (m/s)", isCalled);
+    const dataDate = new Date(data.at(-1).date);
+    const today = new Date();
+    const isToday = dataDate.getDate() === today.getDate();
+
+    createPageHeaders(symbol, !isToday && dataDate.toJSON().slice(0, 10), data.at(-1).time.slice(0, -3));
+    currentChart = createChart(shownData, symbol, isCalled);
 }
 
 async function showLight()
 {
     table.innerHTML = "";
 
+    const symbol = "Light Amount";
     const time = dropdown.value;
+
     const data = await fetchData("light", time === "" ? "167" : time);
-    const header = ["Row", "Light", "Time", "Date"];
     const shownData = time === "" ? data.slice(-amountToShow) : data;
 
-    showCanvas();
-    createHeaders(header);
+    const header = ["Row", symbol, "Time", "Date"];
 
+    showCanvas();
+    createTableHeaders(header);
     createTable(shownData);
-    currentChart = createChart(shownData, "Light Amount", true);
+
+    const dataDate = new Date(data.at(-1).date);
+    const today = new Date();
+    const isToday = dataDate.getDate() === today.getDate();
+
+    createPageHeaders(symbol, !isToday && dataDate.toJSON().slice(0, 10), data.at(-1).time.slice(0, -3));
+    currentChart = createChart(shownData, symbol, true);
 }
 
 async function showRain()
 {
     table.innerHTML = "";
 
+    const symbol = "Rain Amount"
     const time = dropdown.value;
     const data = await fetchData("rain", time === "" ? "167" : time);
-    const header = ["Row", "Rain", "Time", "Date"];
+
+    const header = ["Row", symbol, "Time", "Date"];
     const shownData = time === "" ? data.slice(-amountToShow) : data;
 
     showCanvas();
-    createHeaders(header);
-
+    createTableHeaders(header);
     createTable(shownData);
-    currentChart = createChart(shownData, "Rain Amount", true);
+
+    const dataDate = new Date(data.at(-1).date);
+    const today = new Date();
+    const isToday = dataDate.getDate() === today.getDate();
+
+    createPageHeaders(symbol, !isToday && dataDate.toJSON().slice(0, 10), data.at(-1).time.slice(0, -3));
+    currentChart = createChart(shownData, symbol, true);
 }
 
 async function showWindDir()
@@ -196,17 +240,22 @@ async function showWindDir()
 
     const time = dropdown.value;
 
+    const symbol = `Wind Direction (${angleSymbol})`;
     const data = await fetchData("wind_direction", time === "" ? "167" : time);
-    const header = ["Row", `Wind Direction (${angleSymbol})`, "Time", "Date"];
+    const header = ["Row", symbol, "Time", "Date"];
     const shownData = time === "" ? data.slice(-amountToShow) : data;
 
     showCanvas();
-    createHeaders(header);
+    createTableHeaders(header);
     createTable(shownData);
 
-    currentChart = createChart(shownData, `Wind Direction (${angleSymbol})`, true);
-}
+    const dataDate = new Date(data.at(-1).date);
+    const today = new Date();
+    const isToday = dataDate.getDate() === today.getDate();
 
+    createPageHeaders(symbol, !isToday && dataDate.toJSON().slice(0, 10), data.at(-1).time.slice(0, -3));
+    currentChart = createChart(shownData, symbol, true);
+}
 
 async function fetchData(type = "", customTime = "")
 {
@@ -258,7 +307,7 @@ async function fetchData(type = "", customTime = "")
     }
 }
 
-function createHeaders(types)
+function createTableHeaders(types)
 {
     if (types === null) return;
 
@@ -288,7 +337,7 @@ function createTable(data, showAll = false)
         const rows = document.createElement("tr");
         const tableDataIndex = document.createElement("td");
 
-        tableDataIndex.innerHTML = index;
+        tableDataIndex.innerText = index;
         rows.appendChild(tableDataIndex);
 
         Object.values(elem).forEach(values =>
@@ -303,6 +352,23 @@ function createTable(data, showAll = false)
     });
 }
 
+function createPageHeaders(data = "", isToday = "", currentTime = "")
+{
+    pageInfo.innerHTML = "";
+    const heading = document.createElement("h1");
+    const headingTwo = document.createElement("h3");
+
+    heading.innerText = data.toUpperCase();
+
+    if (isToday !== "" || currentTime !== "")
+    {
+        headingTwo.innerText = `Last updated ${!isToday ? "today" : isToday} at ${currentTime}`;
+        pageInfo.appendChild(headingTwo);
+    }
+
+    pageInfo.appendChild(heading);
+}
+
 function createChart(data, type, extra = false)
 {
     const xValues = data.flatMap(elem => elem.time.slice(0, -3));
@@ -311,8 +377,6 @@ function createChart(data, type, extra = false)
         const dataType = Object.keys(elem)[0];
         return elem[dataType];
     });
-
-    pageInfo.innerText = type;
 
     const chartType = extra ? "line" : "bar";
 
@@ -344,10 +408,10 @@ function createChart(data, type, extra = false)
             scales: {
                 x: {
                     ticks: {
-                        color: "#F3DEBA",
+                        color: "#FEE8B0",
                     },
                     border: {
-                        color: "#A9907E",
+                        color: "#FEE8B0",
                         width: 2
                     },
                     grid: {
@@ -357,11 +421,11 @@ function createChart(data, type, extra = false)
                 y: {
                     stacked: true,
                     ticks: {
-                        color: "#F3DEBA",
+                        color: "#FEE8B0",
                         fontSize: 20
                     },
                     border: {
-                        color: "#A9907E",
+                        color: "#FEE8B0",
                         width: 2
                     },
                     grid: {
@@ -371,32 +435,13 @@ function createChart(data, type, extra = false)
             },
             elements: {
                 bar: {
-                    backgroundColor: "#ABC4AA"
+                    backgroundColor: "#DDFFBB"
                 }
             }
         }
     }
 
-    ctx.style.backgroundColor = "#675D50";
+    ctx.style.backgroundColor = "#675d5070";
     Chart.defaults.color = "#F3DEBA";
     return new Chart(ctx, chartInfo);;
-}
-
-function createTimeInfo(time)
-{
-    switch (time)
-    {
-        case "":
-            return "Current";
-        case "23":
-            return "Today's";
-        case "47":
-            return "2 day's";
-        case "71":
-            return "3 day's";
-        case "167":
-            return "This week's";
-        default:
-            return "";
-    }
 }

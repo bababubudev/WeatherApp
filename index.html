@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <h1 class="header" id="pageInfo">Weather App</h1>
+    <div class="header" id="pageInfo"></div>
     <button class="closebtn" id="close" onclick="toggleNav()">
         <span class="bar bar1"></span>
         <span class="bar bar2"></span>
@@ -39,7 +39,8 @@
                     <button id="drpWnDir" class="nav-btn" onclick="showWindDir()">Wind Direction</button>
                     <button id="drpLght" class="nav-btn" onclick="showLight()">Light</button>
                     <button id="drpTemp" class="nav-btn" onclick="showTemperature(true)">Temperature</button>
-                    <button id="drpWind" class="nav-btn" onclick="showWind(true)">Wind</button>
+                    <button id="drpWind" class="nav-btn" onclick="showWind(true)">Wind Speed</button>
+                    <button id="drpImg" class="nav-btn" onclick="toggleBG()">Background</button>
                 </div>
             </div>
         </div>
@@ -53,7 +54,10 @@
     </div>
 
     <section class="info" id="information-container">
-        <h1>Hello World</h1>
+        <div class="info-wrapper">
+            <h1>Prabesh Sharma</h1>
+            <h3>prabesh.sharma@tuni.fi</h3>
+        </div>
     </section>
 </body>
 
