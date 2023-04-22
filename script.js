@@ -29,7 +29,7 @@ const showInfo = () =>
     table.innerHTML = "";
     canvas.style.display = "none";
     dropdown.style.display = "none";
-    createPageHeaders("About me", "by Prabesh", "4:00");
+    pageInfo.style.display = "none";
 }
 
 const hideInfo = () =>
@@ -37,6 +37,7 @@ const hideInfo = () =>
     info.style.display = "none";
 
     canvas.style.removeProperty("display");
+    pageInfo.style.removeProperty("display");
 };
 
 const toggleBG = () =>
@@ -44,7 +45,7 @@ const toggleBG = () =>
     isImage = !isImage;
     const body = document.body;
 
-    body.style.background = isImage ? "url('./resources/orangeSky.jpeg')" : "rgb(169, 144, 126)";
+    body.style.background = isImage ? "url('./resources/pexels-eberhard-grossgasteiger-844297.jpg') center center no-repeat" : "rgb(169, 144, 126)";
     body.style["backgroundSize"] = "cover";
 }
 
@@ -80,7 +81,7 @@ const toggleNav = (onlyMinimize = false) =>
 };
 
 const btns = document.getElementsByTagName("button");
-const defaultBtn = btns["temp-button"];
+const defaultBtn = btns["home-button"];
 
 currentFunction = defaultBtn.onclick;
 defaultBtn.style.color = "sandybrown";
@@ -118,8 +119,9 @@ const update = () =>
         currentFunction();
 }
 
+toggleBG();
 toggleNav();
-showInfo();
+showHome();
 
 async function showHome()
 {
@@ -302,8 +304,7 @@ async function fetchData(type = "", customTime = "")
     }
     catch (err)
     {
-        console.error(err);
-        return null;
+        return console.error(err);
     }
 }
 
@@ -441,7 +442,7 @@ function createChart(data, type, extra = false)
         }
     }
 
-    ctx.style.backgroundColor = "#675d5070";
+    ctx.style.backgroundColor = "#675d50d9";
     Chart.defaults.color = "#F3DEBA";
     return new Chart(ctx, chartInfo);;
 }

@@ -41,6 +41,14 @@ tr:nth-of-type(2n) {
     color: black;
 }
 
+img {
+    border: 3px solid rgb(169, 144, 126);
+    justify-self: end;
+
+    border-radius: 100%;
+    width: 350px;
+}
+
 /* .forecast {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -53,35 +61,69 @@ tr:nth-of-type(2n) {
     font-size: 0.7rem;
     letter-spacing: 0.2em;
     padding-left: 1em;
-    margin: 0 0 2vh 5vw;
+    margin: 0 0 2vh 5.5vw;
 
     border-radius: 3px;
 
-    background-color: #ddffbb;
-    background: linear-gradient(to right, rgb(221, 255, 187, 1), 40%, rgba(221, 255, 187, 0));
+    background: white;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.493), 40%, rgba(221, 255, 187, 0));
     color: black;
 }
 
 .info {
-    margin: 0 0 0 5vw;
+    margin: 0 0 0 5.5vw;
 
     display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 50px 1fr 1fr;
+    align-items: center;
 
-    background-color: darkslategrey;
-    color: white;
+    background-color: rgb(47, 79, 79, 0.8);
+    color: #FEE8B0;
 
-    text-shadow: -2px 2px black;
+    border: 2px solid grey;
+    border-radius: 3px;
+
+    padding: 5em;
 }
 
-.info-wrapper {
-    padding-left: 1em;
+.me-info {
+    letter-spacing: 0.3em;
+    font-weight: bold;
+}
+
+.me-info>* {
+    padding-bottom: 2em;
+}
+
+.main-info {
+    grid-column: span 2;
+    font-size: 2rem;
+    letter-spacing: 0.3em;
+
+    color: sandybrown;
+
+    border-bottom: 1px solid #FEE8B0;
+    margin-bottom: 100px;
+}
+
+.img-info,
+.site-info {
+    background-color: rgba(0, 0, 0, 0.3);
+    justify-self: stretch;
+
+    border-radius: 3px;
+    padding-left: 20px;
+    color: #DDFFBB;
+
+    grid-column: span 2;
 }
 
 .data-container {
     display: grid;
     grid-template-columns: 1fr 2fr;
     column-gap: 1vw;
-    margin-left: 5vw;
+    margin-left: 5.5vw;
 
     overflow-y: hidden;
 }
@@ -275,7 +317,7 @@ tr:nth-of-type(2n) {
     width: 100%;
 
     border-radius: 5px;
-    background-color: #ABC4AA;
+    background-color: #DDFFBB;
 
     transition: 0.2s ease-in;
 }
